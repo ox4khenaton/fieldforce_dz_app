@@ -1,0 +1,14 @@
+{
+  "name": "fieldforce_dz",
+  "app_name": "fieldforce_dz",
+  "version": "1.0.0",
+  "app_title": "FieldForce DZ",
+  "app_publisher": "FieldForce DZ",
+  "app_email": "dev@fieldforce.dz",
+  "app_description": "FieldForce Pro DZ - Mobile Sales App for ERPNext",
+  "app_license": "MIT",
+  "routes": [],
+  "js": [],
+  "css": [],
+  "builds": []
+}
