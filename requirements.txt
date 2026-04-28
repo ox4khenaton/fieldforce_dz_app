@@ -1,3 +1,1 @@
-frappe>=14.0.0
-erpnext>=14.0.0
 geopy>=2.4.0
