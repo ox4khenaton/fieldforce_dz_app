@@ -1,0 +1,38 @@
+{
+  "actions": [],
+  "autoname": "DEP-.#####",
+  "creation": "2024-01-01 00:00:00",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["vendeur", "type_depense", "montant", "column_break_1", "date", "statut", "section_details", "notes", "justificatif", "column_break_ref", "expense_claim"],
+  "fields": [
+    {"fieldname": "vendeur", "fieldtype": "Link", "label": "Vendeur", "options": "Employee", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "type_depense", "fieldtype": "Select", "label": "Type de Dépense", "options": "Carburant\nRepas\nPéages\nParking\nTéléphone\nAutre", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "montant", "fieldtype": "Currency", "label": "Montant (DA)", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+    {"fieldname": "date", "fieldtype": "Date", "label": "Date", "default": "Today", "in_list_view": 1},
+    {"fieldname": "statut", "fieldtype": "Select", "label": "Statut", "options": "Brouillon\nEnvoyé\nApprouvé\nRejeté", "default": "Brouillon", "in_list_view": 1},
+    {"fieldname": "section_details", "fieldtype": "Section Break", "label": "Détails"},
+    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Description / Justificatif"},
+    {"fieldname": "justificatif", "fieldtype": "Attach Image", "label": "Photo du Reçu"},
+    {"fieldname": "column_break_ref", "fieldtype": "Column Break"},
+    {"fieldname": "expense_claim", "fieldtype": "Link", "label": "Expense Claim", "options": "Expense Claim", "read_only": 1}
+  ],
+  "index_web_pages_for_search": 0,
+  "is_submittable": 1,
+  "links": [],
+  "modified": "2024-01-01 00:00:00",
+  "module": "Fieldforce DZ",
+  "name": "Depense Terrain",
+  "naming_rule": "Expression (old)",
+  "owner": "Administrator",
+  "permissions": [
+    {"create": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Fieldforce Vendeur", "share": 1, "submit": 1, "write": 1},
+    {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Fieldforce Superviseur", "share": 1, "submit": 1, "write": 1, "cancel": 1, "amend": 1}
+  ],
+  "sort_field": "date",
+  "sort_order": "DESC",
+  "states": [],
+  "title_field": "type_depense",
+  "track_changes": 1
+}

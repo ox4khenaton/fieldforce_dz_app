@@ -1,0 +1,43 @@
+{
+  "actions": [],
+  "autoname": "JDV-.#####",
+  "creation": "2024-01-01 00:00:00",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["tournee", "client", "vendeur", "column_break_1", "statut", "date_creation", "section_geo", "heure_arrivee", "heure_depart", "column_break_geo", "gps_latitude", "gps_longitude", "distance_client", "dans_geofence", "section_details", "remarques"],
+  "fields": [
+    {"fieldname": "tournee", "fieldtype": "Link", "label": "Tournée", "options": "Tournee de Vente", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "client", "fieldtype": "Link", "label": "Client", "options": "Customer", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "vendeur", "fieldtype": "Link", "label": "Vendeur", "options": "Employee", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+    {"fieldname": "statut", "fieldtype": "Select", "label": "Statut", "options": "En attente\nEn cours\nVisité\nIgnoré\nAnnulé", "default": "En attente", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "date_creation", "fieldtype": "Datetime", "label": "Date", "default": "Now", "in_list_view": 1},
+    {"fieldname": "section_geo", "fieldtype": "Section Break", "label": "Vérification Géolocalisation"},
+    {"fieldname": "heure_arrivee", "fieldtype": "Datetime", "label": "Heure d'Arrivée"},
+    {"fieldname": "heure_depart", "fieldtype": "Datetime", "label": "Heure de Départ"},
+    {"fieldname": "column_break_geo", "fieldtype": "Column Break"},
+    {"fieldname": "gps_latitude", "fieldtype": "Float", "label": "Latitude GPS", "reqd": 1},
+    {"fieldname": "gps_longitude", "fieldtype": "Float", "label": "Longitude GPS", "reqd": 1},
+    {"fieldname": "distance_client", "fieldtype": "Float", "label": "Distance du Client (m)"},
+    {"fieldname": "dans_geofence", "fieldtype": "Check", "label": "Dans la Zone Géofence", "in_list_view": 1},
+    {"fieldname": "section_details", "fieldtype": "Section Break", "label": "Détails"},
+    {"fieldname": "remarques", "fieldtype": "Small Text", "label": "Remarques"}
+  ],
+  "index_web_pages_for_search": 0,
+  "is_submittable": 1,
+  "links": [],
+  "modified": "2024-01-01 00:00:00",
+  "module": "Fieldforce DZ",
+  "name": "Journal de Visite",
+  "naming_rule": "Expression (old)",
+  "owner": "Administrator",
+  "permissions": [
+    {"create": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Fieldforce Vendeur", "share": 1, "submit": 1, "write": 1, "cancel": 1},
+    {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Fieldforce Superviseur", "share": 1, "submit": 1, "write": 1, "cancel": 1, "amend": 1}
+  ],
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "title_field": "client",
+  "track_changes": 1
+}

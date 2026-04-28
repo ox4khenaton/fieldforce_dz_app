@@ -1,0 +1,8 @@
+include fieldforce_dz/*.json
+include fieldforce_dz/**/*.json
+include fieldforce_dz/**/*.js
+include fieldforce_dz/**/*.css
+include fieldforce_dz/**/*.html
+include fieldforce_dz/**/*.txt
+include fieldforce_dz/**/*.csv
+recursive-include fieldforce_dz *.json *.js *.css *.html *.txt *.csv *.png *.jpg

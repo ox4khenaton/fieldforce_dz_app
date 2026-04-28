@@ -1,0 +1,33 @@
+{
+  "actions": [],
+  "autoname": "ADM-.#####",
+  "creation": "2024-01-01 00:00:00",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["vendeur", "depot_mobile", "depot_principal", "column_break_1", "geofence_radius", "vehicule", "is_active"],
+  "fields": [
+    {"fieldname": "vendeur", "fieldtype": "Link", "label": "Vendeur", "options": "Employee", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "depot_mobile", "fieldtype": "Link", "label": "Dépôt Mobile", "options": "Warehouse", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "depot_principal", "fieldtype": "Link", "label": "Dépôt Principal", "options": "Warehouse"},
+    {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+    {"fieldname": "geofence_radius", "fieldtype": "Int", "label": "Rayon Géofence (mètres)", "default": 50, "description": "Distance maximale autorisée pour le pointage GPS"},
+    {"fieldname": "vehicule", "fieldtype": "Link", "label": "Véhicule", "options": "Vehicle"},
+    {"fieldname": "is_active", "fieldtype": "Check", "label": "Active", "default": 1}
+  ],
+  "index_web_pages_for_search": 0,
+  "links": [],
+  "modified": "2024-01-01 00:00:00",
+  "module": "Fieldforce DZ",
+  "name": "Affectation Depot Mobile",
+  "naming_rule": "Expression (old)",
+  "owner": "Administrator",
+  "permissions": [
+    {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Fieldforce Superviseur", "share": 1, "write": 1},
+    {"email": 1, "export": 1, "print": 1, "read": 1, "role": "Fieldforce Vendeur", "share": 1}
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": [],
+  "title_field": "vendeur",
+  "track_changes": 1
+}

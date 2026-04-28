@@ -1,0 +1,18 @@
+{
+ "name": "Route Assignment",
+ "doctype": "DocType",
+ "module": "FieldForce DZ",
+ "autoname": "field",
+ "is_submittable": 0,
+ "fields": [
+  {"fieldname": "vendeur", "fieldtype": "Link", "label": "Vendeur", "options": "Employee"},
+  {"fieldname": "route", "fieldtype": "Link", "label": "Route", "options": "Tournee de Vente"},
+  {"fieldname": "assignment_date", "fieldtype": "Date", "label": "Assignment Date"},
+  {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Assigned\nIn Progress\nCompleted\nCancelled", "default": "Assigned"},
+  {"fieldname": "notes", "fieldtype": "Text", "label": "Notes"}
+ ],
+ "permissions": [
+  {"role": "Fieldforce Superviseur", "read": 1, "write": 1, "create": 1},
+  {"role": "System Manager", "read": 1, "write": 1, "create": 1}
+ ]
+}

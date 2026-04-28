@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FieldForce DZ - Dashboard</title>
+    <link rel="stylesheet" href="/assets/fieldforce_dz/css/dashboard.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        
+        /* Header */
+        .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 24px; border-radius: 16px; margin-bottom: 24px; position: relative; overflow: hidden; }
+        .header::before { content: ''; position: absolute; top: -50%; right: -20%; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 50%; }
+        .header h1 { font-size: 28px; margin-bottom: 4px; position: relative; }
+        .header .date { opacity: 0.9; font-size: 14px; position: relative; }
+        .header .links { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; position: relative; }
+        .header .links a { color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+        .header .links a:hover { background: rgba(255,255,255,0.3); transform: translateY(-1px); }
+        
+        /* Cards Grid */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .card { background: #1e293b; border-radius: 12px; padding: 20px; border: 1px solid #334155; transition: all 0.2s; }
+        .card:hover { border-color: #10b981; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .card h3 { font-size: 12px; color: #94a3b8; margin-bottom: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card .value { font-size: 28px; font-weight: bold; color: #f1f5f9; }
+        .card .sub { font-size: 12px; color: #64748b; margin-top: 4px; }
+        .card .icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 12px; }
+        
+        /* KPI Colors */
+        .card.sales .icon { background: rgba(16, 185, 129, 0.2); }
+        .card.sales .value { color: #10b981; }
+        .card.orders .icon { background: rgba(59, 130, 246, 0.2); }
+        .card.orders .value { color: #3b82f6; }
+        .card.collected .icon { background: rgba(139, 92, 246, 0.2); }
+        .card.collected .value { color: #8b5cf6; }
+        .card.visits .icon { background: rgba(245, 158, 11, 0.2); }
+        .card.visits .value { color: #f59e0b; }
+        .card.sync .icon { background: rgba(239, 68, 68, 0.2); }
+        .card.sync .value { color: #ef4444; }
+        
+        /* Tables */
+        .table-card { background: #1e293b; border-radius: 12px; padding: 20px; border: 1px solid #334155; margin-bottom: 24px; }
+        .table-card h3 { font-size: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: #f1f5f9; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
+        th { font-size: 11px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        td { font-size: 13px; color: #cbd5e1; }
+        tr:hover { background: #334155; }
+        tr:last-child td { border-bottom: none; }
+        
+        a { color: #10b981; text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        
+        /* Status badges */
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .badge.success { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .badge.warning { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .badge.danger { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .badge.info { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        
+        /* Alerts */
+        .alert { padding: 14px 16px; border-radius: 10px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+        .alert.danger { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; }
+        .alert.warning { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fcd34d; }
+        .alert.success { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+        .alert.info { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #93c5fd; }
+        
+        /* Vendor Grid */
+        .vendor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .vendor-card { background: #334155; border-radius: 10px; padding: 16px; text-align: center; transition: all 0.2s; }
+        .vendor-card:hover { background: #475569; transform: translateY(-2px); }
+        .vendor-card .rank { font-size: 24px; font-weight: bold; color: #10b981; }
+        .vendor-card .name { font-size: 13px; font-weight: 600; color: #f1f5f9; margin: 8px 0; }
+        .vendor-card .stats { font-size: 11px; color: #94a3b8; }
+        
+        /* Two column layout */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @media (max-width: 1024px) { .two-col { grid-template-columns: 1fr; } }
+        
+        /* Quick Links */
+        .quick-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 24px; }
+        .quick-link { background: #334155; border: 1px solid #475569; border-radius: 10px; padding: 16px; text-decoration: none; color: #cbd5e1; font-size: 13px; font-weight: 500; text-align: center; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .quick-link:hover { background: #10b981; color: white; border-color: #10b981; transform: translateY(-2px); }
+        .quick-link .icon { font-size: 24px; }
+        
+        /* Progress bar */
+        .progress-container { background: #334155; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+        .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+        .progress-bar { height: 8px; background: #475569; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #34d399); border-radius: 4px; transition: width 0.5s ease; }
+        
+        /* Empty state */
+        .empty { text-align: center; padding: 40px; color: #64748b; }
+        .empty .icon { font-size: 48px; margin-bottom: 12px; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cards-grid { grid-template-columns: 1fr 1fr; }
+            .header h1 { font-size: 22px; }
+            .quick-links { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚚 FieldForce DZ</h1>
+            <p class="date">{{ today_day }}, {{ current_date }}</p>
+            <div class="links">
+                <a href="/app/fieldforce-dashboard">📊 Dashboard</a>
+                <a href="/app/sales-order">📋 Commandes</a>
+                <a href="/app/payment-entry">💰 Encaissements</a>
+                <a href="/app/tournee-de-vente">🗺️ Tournées</a>
+                <a href="/app/customer">👥 Clients</a>
+                <a href="/app/query-report">📈 Rapports</a>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="quick-links">
+            <a href="/app/sales-order/new" class="quick-link">
+                <span class="icon">➕</span>
+                Nouvelle Commande
+            </a>
+            <a href="/app/payment-entry/new" class="quick-link">
+                <span class="icon">💰</span>
+                Encaisser
+            </a>
+            <a href="/app/tournee-de-vente" class="quick-link">
+                <span class="icon">🗺️</span>
+                Tournées
+            </a>
+            <a href="/app/customer" class="quick-link">
+                <span class="icon">👥</span>
+                Clients
+            </a>
+            <a href="/app/journal-de-visite" class="quick-link">
+                <span class="icon">📍</span>
+                Visites
+            </a>
+            <a href="/app/query-report" class="quick-link">
+                <span class="icon">📊</span>
+                Rapports
+            </a>
+        </div>
+        
+        <!-- KPIs -->
+        <div class="cards-grid">
+            <div class="card sales">
+                <div class="icon">📋</div>
+                <h3>Commandes</h3>
+                <div class="value">{{ sales_stats.total_orders or 0 }}</div>
+                <div class="sub">{{ sales_stats.total_sales or 0 }} DA</div>
+            </div>
+            <div class="card orders">
+                <div class="icon">💵</div>
+                <h3>Chiffre d'Affaires</h3>
+                <div class="value">{{ sales_stats.total_sales or 0 }} DA</div>
+                <div class="sub">{{ sales_stats.total_orders or 0 }} commandes</div>
+            </div>
+            <div class="card collected">
+                <div class="icon">💳</div>
+                <h3>Encaissé</h3>
+                <div class="value">{{ sales_stats.total_collected or 0 }} DA</div>
+                <div class="sub">Total collecté</div>
+            </div>
+            <div class="card visits">
+                <div class="icon">📍</div>
+                <h3>Visites</h3>
+                <div class="value">{{ visit_stats.completed_visits or 0 }}/{{ visit_stats.total_visits or 0 }}</div>
+                <div class="sub">Clients visités</div>
+            </div>
+            <div class="card sync">
+                <div class="icon">🔄</div>
+                <h3>Sync</h3>
+                <div class="value">{{ pending_sync or 0 }}</div>
+                <div class="sub">En attente</div>
+            </div>
+        </div>
+        
+        <!-- Two Columns -->
+        <div class="two-col">
+            <!-- Alerts -->
+            <div class="table-card">
+                <h3>🔔 Alertes</h3>
+                
+                {% if not credit_alerts and not stock_alerts and not out_of_stock %}
+                <div class="empty">
+                    <div class="icon">✨</div>
+                    <p>Aucune alerte - tout est en ordre!</p>
+                </div>
+                {% endif %}
+                
+                {% if credit_alerts %}
+                {% for alert in credit_alerts %}
+                <div class="alert {% if alert.outstanding > alert.credit_limit %}danger{% else %}warning{% endif %}">
+                    <span>⚠️</span>
+                    <div>
+                        <strong>{{ alert.customer_name }}</strong>
+                        <br><small>{{ alert.outstanding }} / {{ alert.credit_limit }} DA</small>
+                    </div>
+                    <a href="/app/customer/{{ alert.customer }}" style="margin-left: auto;">Voir →</a>
+                </div>
+                {% endfor %}
+                {% endif %}
+                
+                {% for item in stock_alerts[:3] %}
+                <div class="alert warning">
+                    <span>📦</span>
+                    <div>
+                        <strong>{{ item.item_name }}</strong>
+                        <br><small>Stock: {{ item.actual_qty }}</small>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                {% for item in out_of_stock[:3] %}
+                <div class="alert danger">
+                    <span>🚫</span>
+                    <div>
+                        <strong>{{ item.item_name }}</strong>
+                        <br><small>Rupture</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Top Vendeurs -->
+            <div class="table-card">
+                <h3>🏆 Meilleurs Vendeurs</h3>
+                <div class="vendor-grid">
+                    {% for vendor in active_vendors[:8] %}
+                    <div class="vendor-card">
+                        <div class="rank">#{{ loop.index }}</div>
+                        <div class="name">{{ vendor.employee_name[:18] }}</div>
+                        <div class="stats">{{ vendor.orders_today }} cmd • {{ vendor.sales_today }} DA</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if not active_vendors %}
+                <div class="empty">
+                    <p>Aucune donnée</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>Objectif du jour</span>
+                <span>75% • 25 000 / 35 000 DA</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%;"></div>
+            </div>
+        </div>
+        
+        <!-- Pending Payments -->
+        {% if pending_payments_orders %}
+        <div class="table-card">
+            <h3>💳 Encaissements en Attente ({{ pending_payments_orders|length }})</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Commande</th>
+                        <th>Client</th>
+                        <th>Total</th>
+                        <th>Payé</th>
+                        <th>Restant</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in pending_payments_orders[:10] %}
+                    <tr>
+                        <td><a href="/app/sales-order/{{ order.name }}">{{ order.name }}</a></td>
+                        <td>{{ order.customer_name[:25] }}</td>
+                        <td><strong>{{ order.grand_total }} DA</strong></td>
+                        <td>{{ order.perpaid_amount or 0 }} DA</td>
+                        <td><span class="badge danger">{{ order.balance_due }} DA</span></td>
+                        <td><a href="/app/payment-entry/new?order={{ order.name }}" class="badge success">Encaisser</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        
+        <!-- Recent Payments -->
+        {% if recent_payments %}
+        <div class="table-card">
+            <h3>💰 Paiements Récents</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Paiement</th>
+                        <th>Client</th>
+                        <th>Montant</th>
+                        <th>Mode</th>
+                        <th>Commande</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in recent_payments[:10] %}
+                    <tr>
+                        <td><a href="/app/payment-entry/{{ payment.name }}">{{ payment.name }}</a></td>
+                        <td>{{ payment.party[:20] }}</td>
+                        <td><strong>{{ payment.paid_amount }} DA</strong></td>
+                        <td><span class="badge info">{{ payment.mode_of_payment }}</span></td>
+                        <td>{% if payment.linked_order %}<a href="/app/sales-order/{{ payment.linked_order }}">{{ payment.linked_order }}</a>{% else %}-{% endif %}</td>
+                        <td>{{ payment.posting_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        
+        <!-- Today's Routes -->
+        {% if today_routes %}
+        <div class="table-card">
+            <h3>🗺️ Tournées du Jour</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tournée</th>
+                        <th>Jour</th>
+                        <th>Territoire</th>
+                        <th>Clients</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for route in today_routes %}
+                    <tr>
+                        <td><a href="/app/tournee-de-vente/{{ route.name }}">{{ route.nom_tournee }}</a></td>
+                        <td>{{ route.jour_semaine }}</td>
+                        <td>{{ route.territoire }}</td>
+                        <td><span class="badge success">{{ route.clients_count }}</span></td>
+                        <td><a href="/app/tournee-de-vente/{{ route.name }}" class="badge info">Voir</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        
+        <!-- Recent Orders -->
+        {% if recent_orders %}
+        <div class="table-card">
+            <h3>📋 Commandes Récentes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Client</th>
+                        <th>Montant</th>
+                        <th>Statut</th>
+                        <th>Vendeur</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in recent_orders[:15] %}
+                    <tr>
+                        <td><a href="/app/sales-order/{{ order.name }}">{{ order.name }}</a></td>
+                        <td>{{ order.customer_name[:22] }}</td>
+                        <td><strong>{{ order.grand_total }} DA</strong></td>
+                        <td><span class="badge {% if order.status == 'Paid' %}success{% elif order.status == 'Draft' %}warning{% else %}info{% endif %}">{{ order.status }}</span></td>
+                        <td>{{ order.employee_name[:14] }}</td>
+                        <td>{{ order.transaction_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

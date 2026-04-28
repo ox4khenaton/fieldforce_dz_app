@@ -1,0 +1,36 @@
+{
+  "actions": [],
+  "autoname": "TOUR-.#####",
+  "creation": "2024-01-01 00:00:00",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["nom_tournee", "jour_semaine", "territoire", "vendeur", "column_break_1", "is_active", "estimated_distance_km", "section_customers", "customers"],
+  "fields": [
+    {"fieldname": "nom_tournee", "fieldtype": "Data", "label": "Nom de la Tournée", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "jour_semaine", "fieldtype": "Select", "label": "Jour de la Semaine", "options": "Lundi\nMardi\nMercredi\nJeudi\nVendredi\nSamedi", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "territoire", "fieldtype": "Link", "label": "Territoire / Wilaya", "options": "Territory", "reqd": 1},
+    {"fieldname": "vendeur", "fieldtype": "Link", "label": "Vendeur", "options": "Employee", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+    {"fieldname": "is_active", "fieldtype": "Check", "label": "Active", "default": 1},
+    {"fieldname": "estimated_distance_km", "fieldtype": "Float", "label": "Distance Estimée (km)"},
+    {"fieldname": "section_customers", "fieldtype": "Section Break", "label": "Clients sur l'Itinéraire"},
+    {"fieldname": "customers", "fieldtype": "Table", "label": "Clients", "options": "Client Tournée", "reqd": 1}
+  ],
+  "index_web_pages_for_search": 0,
+  "is_submittable": 0,
+  "links": [],
+  "modified": "2024-01-01 00:00:00",
+  "module": "Fieldforce DZ",
+  "name": "Tournee de Vente",
+  "naming_rule": "Expression (old)",
+  "owner": "Administrator",
+  "permissions": [
+    {"create": 1, "delete": 1, "email": 1, "export": 1, "print": 1, "read": 1, "report": 1, "role": "Fieldforce Superviseur", "share": 1, "write": 1},
+    {"create": 1, "email": 1, "export": 1, "print": 1, "read": 1, "role": "Fieldforce Vendeur", "share": 1, "write": 1}
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": [],
+  "title_field": "nom_tournee",
+  "track_changes": 1
+}

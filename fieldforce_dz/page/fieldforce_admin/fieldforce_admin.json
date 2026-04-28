@@ -1,0 +1,7 @@
+{
+  "page_title": "FieldForce Admin",
+  "title": "Admin - Suivi des Vendeurs",
+  "icon": "fa fa-line-chart",
+  "title_and_code": "FieldForce Admin",
+  "route": "/app/fieldforce-admin"
+}
