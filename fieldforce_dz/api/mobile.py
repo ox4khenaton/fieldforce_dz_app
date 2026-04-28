@@ -12,6 +12,21 @@ from frappe.model.document import Document
 
 
 # ============================================================
+# APP INFO (for testing)
+# ============================================================
+
+@frappe.whitelist()
+def get_app_info():
+    """Test endpoint - returns app info"""
+    return {
+        "app_name": "fieldforce_dz",
+        "version": "1.0.0",
+        "status": "OK",
+        "api_count": 50,
+    }
+
+
+# ============================================================
 # UTILITAIRES
 # ============================================================
 
