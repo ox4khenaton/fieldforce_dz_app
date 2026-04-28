@@ -47,77 +47,26 @@ override_doctypes = {
 # app_include_css = "fieldforce_dz.bundle.css"
 
 # -----------------------------------------------------------
-# Événements DocType
+# DocEvents (optionnel - pour le moment désactivé)
 # -----------------------------------------------------------
-doc_events = {
-    "Sales Order": {
-        "validate": "fieldforce_dz.overrides.sales_order.validate_sales_order",
-        "on_submit": "fieldforce_dz.overrides.sales_order.on_sales_order_submit",
-        "on_cancel": "fieldforce_dz.overrides.sales_order.on_sales_order_cancel",
-    },
-    "Payment Entry": {
-        "validate": "fieldforce_dz.overrides.payment_entry.validate_payment_entry",
-        "on_submit": "fieldforce_dz.overrides.payment_entry.on_payment_submit",
-    },
-    "Customer": {
-        "validate": "fieldforce_dz.overrides.customer.validate_customer",
-    },
-}
+# doc_events = {}
 
 # -----------------------------------------------------------
-# Scheduled Tasks (tâches planifiées)
+# Scheduled Tasks (désactivé pour l'instant)
 # -----------------------------------------------------------
-scheduler_events = {
-    # Toutes les 5 minutes: vérifier les sync en attente
-    "all": [
-        "fieldforce_dz.api.sync.process_pending_syncs",
-    ],
-    # Chaque jour à 23h00: bilan automatique
-    "daily": [
-        "fieldforce_dz.api.sync.daily_cleanup",
-        "fieldforce_dz.api.mobile.auto_day_end_reminder",
-    ],
-    # Chaque heure: mettre à jour les objectifs
-    "hourly": [
-        "fieldforce_dz.api.sync.update_sales_targets",
-    ],
-    # Chaque lundi: planifier les tournées de la semaine
-    "weekly": [
-        "fieldforce_dz.api.sync.weekly_route_planning",
-    ],
-}
+# scheduler_events = {}
 
 # -----------------------------------------------------------
 # Hooks before_install / after_install
 # -----------------------------------------------------------
-after_install = "fieldforce_dz.install.after_install"
-before_uninstall = "fieldforce_dz.install.before_uninstall"
-after_migrate = "fieldforce_dz.install.after_migrate"
+# after_install = "fieldforce_dz.install.after_install"
 
 # -----------------------------------------------------------
 # Fixtures (données de référence à exporter)
 # -----------------------------------------------------------
 fixtures = [
-    # Rôles personnalisés
-    {"doctype": "Role", "filters": [["name", "in", [
-        "Fieldforce Vendeur",
-        "Fieldforce Superviseur",
-    ]]]},
-    # Formats d'impression
-    {"doctype": "Print Format", "filters": [["name", "in", [
-        "Reçu Thermique 58mm",
-        "Reçu Thermique 80mm",
-    ]]]},
-    # Paramètres de l'application
+    # Parameteres de l'application
     {"doctype": "Fieldforce DZ Settings"},
-    # File d'attente Offline
-    {"doctype": "Offline Queue"},
-    # Log GPS
-    {"doctype": "GPS Location Log"},
-    # Feedback client
-    {"doctype": "Customer Feedback"},
-    # Assignation de tournée
-    {"doctype": "Route Assignment"},
 ]
 
 # -----------------------------------------------------------
