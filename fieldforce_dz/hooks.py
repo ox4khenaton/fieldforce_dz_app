@@ -25,3 +25,9 @@ def cors_add_headers(response):
     return response
 
 after_request = ["fieldforce_dz.hooks.cors_add_headers"]
+
+# ============================================================
+# Asset Bundles
+# ============================================================
+app_include_js = ["fieldforce_dz.bundle.js"]
+app_include_css = ["fieldforce_dz.bundle.css"]
